@@ -9,7 +9,7 @@ A collection of web components using the [Polymer lib](http://www.polymer-projec
     $ git clone git://github.com/scopyleft/web-components.git
     $ cd web-components
     $ git clone git://github.com/Polymer/polymer-all.git --recursive
-    $ python3.3 -m http.server 8765
+    $ python3 -m http.server 8765
     (or $ python -m SimpleHTTPServer 8765)
     $ open http://127.0.0.1:8765/
 
