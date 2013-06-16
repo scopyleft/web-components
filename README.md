@@ -1,12 +1,10 @@
-Web Components
-==============
+# Web Components
 
 A collection of web components using the polymer lib: http://www.polymer-project.org/
 
 **Because Web Components are the future of the Web (and we want to be part of it).**
 
-Installation
-------------
+## Installation
 
     $ git clone git://github.com/scopyleft/web-components.git
     $ cd web-components
@@ -15,15 +13,13 @@ Installation
     (or $ python -m SimpleHTTPServer 8765)
     $ open http://127.0.0.1:8765/
 
-Components
-----------
+## Components
 
-github-repository
-~~~~~~~~~~~~~~~~~
+### `github-repository`
 
-Displays a github-like summary for a given repository.
+Displays a github-like summary for a given repository. Inspired by [GitHub-jQuery-Repo-Widget](https://github.com/JoelSutherland/GitHub-jQuery-Repo-Widget).
 
 Attributes:
 
-* repository (required): a string containing `repository owner`/`repository name`
-* width (optional, default="500px"): a string setting the width of the component with the related unit.
+* **repository** (required): a string containing `repository owner`/`repository name`
+* **width** (optional, default=`500px`): a string setting the width of the component with the related unit.
