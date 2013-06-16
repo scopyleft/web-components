@@ -58,6 +58,7 @@
       ready: function() {
         this.vendorName = this.repository.split('/')[0];
         this.repoName = this.repository.split('/')[1];
+        this.width = this.width || '500px';
         this.load(this);
       },
       load: function(component) {
