@@ -23,3 +23,7 @@ Attributes:
 
 * **repository** (required): a string containing `repository owner`/`repository name`
 * **width** (optional, default=`500px`): a string setting the width of the component with the related unit.
+
+### `feed-box`
+
+Work in progress.
