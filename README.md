@@ -24,6 +24,16 @@ Attributes:
 * **repository** (required): a string containing `repository owner`/`repository name`
 * **width** (optional, default=`500px`): a string setting the width of the component with the related unit.
 
+### `trello-card`
+
+Displays a Trello card from a public board.
+
+Attributes:
+
+* **cardId** (required): a string containing the Trello card id
+* **trelloKey** (required): a string containing the Trello key [available for developers](https://trello.com/1/appKey/generate)
+* **width** (optional, default=`500px`): a string setting the width of the component with the related unit.
+
 ### `feed-box`
 
 Work in progress.
