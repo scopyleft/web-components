@@ -73,9 +73,9 @@
           }
           var repo = JSON.parse(this.responseText);
           component.login = repo.owner.login;
-          component.ownerUrl = repo.owner.url.replace('api.','').replace('users/','');
+          component.ownerUrl = repo.owner.html_url;
           component.name = repo.name;
-          component.repoUrl = repo.url.replace('api.','').replace('repos/','')
+          component.repoUrl = repo.html_url
           component.watchers = repo.watchers;
           component.watchersUrl = component.repoUrl + "/watchers";
           component.forks = repo.forks;
