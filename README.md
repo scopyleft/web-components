@@ -37,3 +37,38 @@ Attributes:
 ### `feed-box`
 
 Work in progress.
+
+
+### `x-map`
+
+Displays a [Leaflet](http://leafletjs.com/) map.
+
+`x-map` attributes:
+
+* **lat** (required): the latitude where to center
+* **lng** (required): the longitude where to center
+* **zoom** (optional, default=`12`): The zoom level
+* **width** (optional, default=`200`): The width of the map in pixels
+* **height** (optional, default=`200`): The height of the map in pixels
+* **credit** (optional): A text (HTML allowed) to insert into the footer of the map.
+
+#### `x-marker`
+
+You can also insert markers inside an `x-map`:
+
+
+    <x-map lat="43.656291" lng="3.89034">
+        <x-marker lat="43.610772" lng="3.876715">
+            <h1>City of Montpellier</h1>
+        </x-marker>
+    </x-map>
+
+
+`x-marker` attributes:
+
+* **lat** (required): the latitude where to place the marker
+* **lng** (required): the longitude where to place the marker
+* **open** (optional): if specified and the node as a content, the content will be rendered in an open popup.
+
+> Note that an x-marker can have an optional content inside its node. It will be rendered as a popup that will open on click (or open on load if the `open` attribute is specified)
+
