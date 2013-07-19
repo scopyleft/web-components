@@ -1,0 +1,80 @@
+<polymer-element name="x-map" attributes="width height lat lng zoom credit">
+
+    <template>
+        <div id="map"></div>
+        <style type="text/css">
+            @import url("http://cdn.leafletjs.com/leaflet-0.6.3/leaflet.css");
+            @host {
+                * {
+                    display: block;
+                    width: {{width}}px;
+                    height: {{height}}px;
+                }
+            }
+            #map {
+                    width: {{width}}px;
+                    height: {{height}}px;
+            }
+        </style>
+    </template>
+
+    <script>
+        "use strict";
+        Polymer('x-map', {
+            map: null,
+            zoom: 12,
+            credit: "",
+            ready: function() {
+                console.log(this.height)
+                if(!this.height)
+                    this.height = 200;
+                if(!(this.lat && this.lng)) {
+                    console.error("lat and lng attributes are required for x-map");
+                    return;
+                }
+                this.draw(this.$.map);
+                this.dispatchEvent(new Event('ready'));
+            },
+            draw: function(element) {
+                var tile = L.tileLayer(
+                    'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
+                        attribution: this.credit
+                    }
+                );
+                this.map = L.map(element).setView([this.lat, this.lng], this.zoom);
+                tile.addTo(this.map);
+            }
+
+        });
+    </script>
+</polymer-element>
+
+
+<polymer-element name="x-marker" attributes="lat lng open">
+    <script type="text/javascript">
+        "use strict";
+        Polymer('x-marker', {
+            xmap: null,
+            ready: function() {
+                if(!(this.lat && this.lng)) {
+                    console.error("lat and lng attributes are required for x-marker");
+                    return;
+                }
+                var self = this;
+                this.xmap = this.parentElement;
+                this.xmap.addEventListener('ready', function() {
+                    self.display();
+                });
+            },
+            display: function() {
+                var marker = L.marker([this.lat, this.lng]),
+                    content = this.innerHTML;
+                marker.addTo(this.xmap.map);
+                if(content)
+                    marker.bindPopup(content);
+                if(this.open !== null)
+                    marker.openPopup();
+            }
+        });
+    </script>
+</polymer-element>

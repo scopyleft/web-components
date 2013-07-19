@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>A map Web Component</title>
+    <script src="http://cdn.leafletjs.com/leaflet-0.6.3/leaflet.js"></script>
+    <script src="./polymer-all/polymer/polymer.js"></script>
+    <link rel="import" href="components/x-map.html" />
+  </head>
+  <body>
+    <h1>A map Web Component</h1>
+
+    <h2>Minimal map</h2>
+    <x-map lat="43.656291" lng="3.89034"></x-map>
+
+    <h2>Map with options</h2>
+    <x-map lat="43.656291" lng="3.89034" width="900" height="300" zoom="12" credit="<a href='https://github.com/scopyleft/web-components'>get the sources</a> of this web-component" zoom="10"></x-map>
+
+    <h2>Advanced with markers</h2>
+    <x-map lat="43.656291" lng="3.89034" width="900" height="400" zoom="12" credit="<a href='https://github.com/scopyleft/web-components'>get the sources</a> of this web-component" zoom="10">
+        <x-marker lat="43.656291" lng="3.89034">
+            <h1>scopyleft</h1>
+            <p><a href="http://scopyleft.fr">our website</a></p>
+        </x-marker>
+        <x-marker lat="43.610772" lng="3.876715">
+            <h1>City of Montpellier</h1>
+        </x-marker>
+    </x-map>
+
+    <p>These maps are based on <a href="http://leafletjs.com/">Leaflet</a></p>
+  </body>
+</html>
+
