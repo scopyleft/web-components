@@ -10,7 +10,7 @@
 *
 */
 -->
-<element name="github-repository" attributes="repository width">
+<polymer-element name="github-repository" attributes="repository width">
   <template>
     <style type="text/css">
       .github-box{font-family:helvetica,arial,sans-serif;font-size:13px;line-height:18px;background:#fafafa;border:1px solid #ddd;color:#666;border-radius:3px}
@@ -54,7 +54,7 @@
     </div>
   </template>
   <script>
-    Polymer.register(this, {
+    Polymer('github-repository', {
       ready: function() {
         this.vendorName = this.repository.split('/')[0];
         this.repoName = this.repository.split('/')[1];
@@ -102,4 +102,4 @@
       }
     });
   </script>
-</element>
+</polymer-element>

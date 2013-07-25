@@ -1,14 +1,14 @@
 <!--
 /**
-* feed-box displays the latest items from an atom feed
+* trello-card displays a public Trello card
 *
 * Example:
 *
-* <feed-box url="github.com/scopyleft/web-components/commits/master.atom"></feed-box>
+* <trello-card trelloKey="c89ff43f7bf1379ebe49795156786e52" cardId="50a641a3d14312f9490029c7" width="700px"></trello-card>
 *
 */
 -->
-<element name="feed-box" attributes="url width">
+<polymer-element name="trello-card" attributes="trelloKey cardId width">
   <template>
     <style type="text/css">
       .github-box{font-family:helvetica,arial,sans-serif;font-size:13px;line-height:18px;background:#fafafa;border:1px solid #ddd;color:#666;border-radius:3px}
@@ -31,28 +31,26 @@
     </style>
     <div class="github-box repo" style="width: {{ width }}">
         <div class="github-box-title">
-            <h3>{{url}}</h3>
+            <h3>{{ name }}</h3>
         </div>
         <div class="github-box-content">
-            <ul class="link" id="items"></ul>
+            <p class="description">{{ description }}</p>
         </div>
         <div class="github-box-download">
-            <p class="updated">Latest update on {{ publishedAt }}</p>
-            <a class="download" href="{{ downloadUrl }}">Go to the full website</a>
+            <p class="updated">Card from <a href="{{ boardUrl }}">{{ board }}</a></p>
+            <a class="download" href="{{ cardUrl }}">Go to the full card on Trello</a>
         </div>
     </div>
   </template>
   <script>
-    Polymer.register(this, {
+    Polymer('trello-card', {
       ready: function() {
         this.width = this.width || '500px';
-        this.load(this);
+        this.loadCard(this);
       },
-      load: function(component) {
-        var url = 'https://' + this.url,
-            httpRequest = new XMLHttpRequest(),
-            htmlResult = '';
-        url = 'http://pipes.yahoo.com/pipes/pipe.run?_id=1693719b8b19f2ae290929fe9154561c&_render=rss&numberinput1=30&urlinput1=' + encodeURIComponent(url);
+      loadCard: function(component) {
+        var httpRequest = new XMLHttpRequest(),
+            url = 'https://api.trello.com/1/cards/' + this.cardId + '?key=' + this.trelloKey + '&fields=name,desc,url,idBoard';
         httpRequest.open('GET', url, true);
         httpRequest.send();
         httpRequest.onreadystatechange = function() {
@@ -60,18 +58,26 @@
             component.error(this);
             return;
           }
-          var feed = this.responseXML;
-          var itemsLength = feed.getElementsByTagName("item").length;
-          component.publishedAt = feed.getElementsByTagName('item').item(0)
-                                      .getElementsByTagName('pubDate').item(0).firstChild.data;
-
-          for (i = 0; i < itemsLength; ++i) {
-            var entry = feed.getElementsByTagName('item').item(i);
-            var title = entry.getElementsByTagName('title').item(0).firstChild.data;
-            var link = entry.getElementsByTagName('link').item(0).firstChild.data;
-            htmlResult += '<li><a href="' + link + '">' + title + '</a></li>';
+          var card = JSON.parse(this.responseText);
+          component.name = card.name;
+          component.description = card.desc;
+          component.cardUrl = card.url;
+          component.loadBoard(component, card.idBoard);
+        };
+      },
+      loadBoard: function(component, idBoard) {
+        var httpRequest = new XMLHttpRequest(),
+            url = 'https://api.trello.com/1/boards/' + idBoard + '?key=' + this.trelloKey + '&fields=name,url';
+        httpRequest.open('GET', url, true);
+        httpRequest.send();
+        httpRequest.onreadystatechange = function() {
+          if(this.status !== 200) {
+            component.error(this);
+            return;
           }
-          component.$.items.innerHTML = htmlResult;
+          var board = JSON.parse(this.responseText);
+          component.board = board.name;
+          component.boardUrl = board.url;
         };
       },
       error: function(error) {
@@ -79,4 +85,4 @@
       }
     });
   </script>
-</element>
+</polymer-element>
